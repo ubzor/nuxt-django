@@ -1,0 +1,10 @@
+mutation (
+    $validationToken: String!
+) {
+    verifyAccount(
+        token: $validationToken
+    ) {
+        success,
+        errors
+    }
+}

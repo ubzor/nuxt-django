@@ -1,0 +1,11 @@
+query {
+    me {
+        id,
+        email,
+        username,
+        firstName,
+        lastName,
+        verified,
+        isActive
+    }
+}

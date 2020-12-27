@@ -1,21 +1,7 @@
 import graphene
-from graphene_django import DjangoObjectType
 
 from .models import Todo, Category
-
-# С помощью graphene_django привязываем типы к моделям,
-# что позволит ходить по всей вложенности базы данных как угодно,
-# прямо из интерфейса GraphiQL.
-# Однако будьте осторожны, связывание таблиц практически напрямую
-# с фронтом может быть чревато при росте проекта. Думаю такой способ
-# подходит преимущественно для небольших CRUD приложений.
-class CategoryNode(DjangoObjectType):
-    class Meta:
-        model = Category
-
-class TodoNode(DjangoObjectType):
-    class Meta:
-        model = Todo
+from .types import TodoNode, CategoryNode
 
 class Query(graphene.ObjectType):
     """ Описываем запросы и возвращаемые типы данных """
