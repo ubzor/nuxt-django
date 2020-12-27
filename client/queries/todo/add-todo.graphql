@@ -1,0 +1,28 @@
+mutation(
+    $title: String!
+    $text: String
+    $dueDate: Date!
+    $category: String!
+) {
+    addTodo(
+        title: $title
+        text: $text
+        dueDate: $dueDate
+        category: $category
+    ) {
+        ...TodoContents
+    }
+}
+
+fragment TodoContents on TodoNode {
+    id
+    title
+    text
+    done
+    createdDate
+    dueDate
+    category {
+        id
+        name
+    }
+}

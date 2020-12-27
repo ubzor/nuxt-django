@@ -1,0 +1,18 @@
+{
+    todoList {
+        ...TodoContents
+    }
+}
+
+fragment TodoContents on TodoNode {
+    id
+    title
+    text
+    done
+    createdDate
+    dueDate
+    category {
+        id
+        name
+    }
+}
