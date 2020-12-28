@@ -90,7 +90,7 @@
 
 <script>
 // импортируем свеженаписанные запросы
-import { ADD_TODO, GET_CATEGORIES, GET_TODO_LIST } from "~/plugins/graphql";
+import { TODO_ADD, TODO_GET_CATEGORIES, TODO_GET_TODO_LIST } from "~/plugins/graphql";
 
 export default {
   name: "NewTodoForm",
@@ -108,7 +108,7 @@ export default {
   apollo: {
     // загрузка данных для селектора категорий
     categories: {
-      query: GET_CATEGORIES,
+      query: TODO_GET_CATEGORIES,
       update({ categories }) {
         return categories.map((c) => c.name);
       },
@@ -122,7 +122,7 @@ export default {
       this.loading = true;
       this.$apollo
         .mutate({
-          mutation: ADD_TODO,
+          mutation: TODO_ADD,
           variables: {
             ...this.newTodo,
           },
@@ -134,11 +134,11 @@ export default {
           // случае подписчиком является переменная todoList в компоненте index.vue
           update: (store, { data: { addTodo } }) => {
             // если в кэше отсутствуют данные по запросу, то бросится исключение
-            const todoListData = store.readQuery({ query: GET_TODO_LIST });
+            const todoListData = store.readQuery({ query: TODO_GET_TODO_LIST });
             todoListData.todoList.unshift(addTodo);
-            store.writeQuery({ query: GET_CATEGORIES, data: todoListData });
+            store.writeQuery({ query: TODO_GET_CATEGORIES, data: todoListData });
 
-            const categoriesData = store.readQuery({ query: GET_CATEGORIES });
+            const categoriesData = store.readQuery({ query: TODO_GET_CATEGORIES });
             // В списке категорий ищем категорию новой записи Todo. При неудачном поиске
             // добавляем в кэш. Таким образом селектор категорий всегда остается
             // в актуальном состоянии
@@ -147,7 +147,7 @@ export default {
             );
             if (!category) {
               categoriesData.categories.push(addTodo.category);
-              store.writeQuery({ query: GET_CATEGORIES, data: categoriesData });
+              store.writeQuery({ query: TODO_GET_CATEGORIES, data: categoriesData });
             }
           },
         })

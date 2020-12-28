@@ -6,6 +6,7 @@
   "license": "MIT",
   "repository": "https://github.com/ubzor/nuxt-django-apollo",
   "dependencies": {
+    "@babel/plugin-transform-spread": "^7.12.1",
     "@nuxt/vue-app": "^2.14.12",
     "@nuxtjs/apollo": "^4.0.1-rc.5",
     "@nuxtjs/auth": "^4.9.1",

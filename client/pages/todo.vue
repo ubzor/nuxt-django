@@ -2,7 +2,7 @@
     div
         // h1.text-h1 {{ pageTitle }}
 
-        v-layout.mt-10(row wrap justify-center)
+        v-layout.mt-0(row wrap justify-center)
             v-flex.pb-1(xs8)
                 todo-form
             v-flex(
@@ -16,7 +16,7 @@
 <script>
     import Vue from 'vue'
 
-    import { GET_TODO_LIST } from '../plugins/graphql'
+    import { TODO_GET_TODO_LIST } from '../plugins/graphql'
 
     export default Vue.extend({
         data() {
@@ -42,7 +42,7 @@
         },
 
         apollo: {
-            todoList: { query: GET_TODO_LIST }
+            todoList: { query: TODO_GET_TODO_LIST }
         }
     })
 </script>

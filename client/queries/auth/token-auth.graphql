@@ -8,10 +8,8 @@ mutation (
     ) {
         success,
         errors,
-        unarchiving,
         token,
         refreshToken,
-        unarchiving,
         user {
             id,
             username,

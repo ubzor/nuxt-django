@@ -15,7 +15,10 @@
     export default Vue.extend({
         data() {
             return {
+                isAuthenticated: false,
+
                 projectTitle: 'Project title',
+
                 menuItems: [
                     {
                         icon: 'mdi-home',
@@ -28,8 +31,13 @@
                         link: '/todo',
                     },
                 ],
-                contactEmail: 'forubz@gmail.com'
+
+                contactEmail: 'forubz@gmail.com',
             }
+        },
+
+        mounted() {
+            this.isAuthenticated = !!this.$apolloHelpers.getToken()
         },
     })
 </script>

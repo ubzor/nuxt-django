@@ -1,23 +1,22 @@
 <template lang="pug">
-    div
-        h1.text-h1 {{ pageTitle }}
+    login-form
 </template>
 
 <script>
     import Vue from 'vue'
 
     export default Vue.extend({
+
+        layout: 'centered',
+
         data() {
             return {
                 meta: {
-                    title: 'Main page meta title',
-                    description: 'Main page meta description',
+                    title: 'Login form',
+                    description: 'Login form page meta description',
                 },
-                pageTitle: 'Main page'
             }
         },
-
-        // todo: somehow simplify meta for pages
 
         head() {
             return {

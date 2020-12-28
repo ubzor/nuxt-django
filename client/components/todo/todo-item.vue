@@ -51,7 +51,7 @@
 
 <script>
 // импортируем свеженаписанные запросы
-import { GET_TODO_LIST, REMOVE_TODO, TOGGLE_TODO } from '~/plugins/graphql'
+import { TODO_GET_TODO_LIST, TODO_REMOVE, TODO_TOGGLE } from '~/plugins/graphql'
 
 export default {
   name: 'TodoItem',
@@ -70,7 +70,7 @@ export default {
       // измененный объект. В нашем случае это запрос в компоненте index.vue
       // на получение списка Todo
       this.$apollo.mutate({
-        mutation: TOGGLE_TODO,
+        mutation: TODO_TOGGLE,
         variables: {
           todoId: this.todo.id
         }
@@ -80,17 +80,17 @@ export default {
       // функция update не видит контекста this
       const todoId = this.todo.id
       this.$apollo.mutate({
-        mutation: REMOVE_TODO,
+        mutation: TODO_REMOVE,
         variables: {
           todoId
         },
         update(store, { data: { removeTodo } }) {
           if (!removeTodo) return
           // В случае успешного удаления удаляем текущий элемент из кэша
-          const data = store.readQuery({ query: GET_TODO_LIST })
+          const data = store.readQuery({ query: TODO_GET_TODO_LIST })
           data.todoList = data.todoList.filter(todo => todo.id !== todoId)
           // Самоуничтожаемся!
-          store.writeQuery({ query: GET_TODO_LIST, data })
+          store.writeQuery({ query: TODO_GET_TODO_LIST, data })
         }
       })
     }

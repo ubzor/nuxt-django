@@ -1,23 +1,22 @@
 <template lang="pug">
-    div
-        h1.text-h1 {{ pageTitle }}
+    verify-account-form
 </template>
 
 <script>
     import Vue from 'vue'
 
     export default Vue.extend({
+
+        layout: 'centered',
+
         data() {
             return {
                 meta: {
-                    title: 'Main page meta title',
-                    description: 'Main page meta description',
+                    title: 'Validate account form',
+                    description: 'Validate account form page meta description',
                 },
-                pageTitle: 'Main page'
             }
         },
-
-        // todo: somehow simplify meta for pages
 
         head() {
             return {
