@@ -1,5 +1,6 @@
 <template lang="pug">
-    div
+    verify-account-form(:token-string="this.token")
+    //- div {{ this.token }}
 </template>
 
 <script>
@@ -8,6 +9,24 @@
     export default Vue.extend({
 
         layout: 'centered',
+
+        data() {
+            return {
+                meta: {
+                    title: 'Validate account form',
+                    description: 'Validate account form page meta description',
+                },
+            }
+        },
+
+        head() {
+            return {
+                title: this.meta.title,
+                meta: [
+                    { hid: 'description', name: 'description', content: this.meta.description},
+                ]
+            }
+        },
 
         async asyncData({ params }) {
             const token = params.token

@@ -172,7 +172,15 @@ GRAPHQL_AUTH = {
         'email',
         # 'username',
     ],
-    # ...
+
+    'ACTIVATION_PATH_ON_EMAIL': 'auth/activate',
+
+    'EMAIL_SUBJECT_ACTIVATION': 'auth_app/activation_subject.txt',
+    'EMAIL_TEMPLATE_ACTIVATION': 'auth_app/activation_email.html',
+
+    'EMAIL_TEMPLATE_VARIABLES': {
+        'frontend_domain': '0.0.0.0:7999', # todo: dotenv
+    }
 }
 
 AUTHENTICATION_BACKENDS = [
@@ -185,3 +193,4 @@ AUTH_USER_MODEL = 'auth_app.CustomUser'
 # Email
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+DEFAULT_FROM_EMAIL = 'testing@example.com'

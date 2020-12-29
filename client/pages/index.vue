@@ -26,6 +26,6 @@
                     { hid: 'description', name: 'description', content: this.meta.description},
                 ]
             }
-        }
+        },
     })
 </script>

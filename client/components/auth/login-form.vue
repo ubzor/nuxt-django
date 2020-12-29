@@ -37,7 +37,7 @@
 
 <script>
     import Vue from 'vue'
-    import { AUTH_TOKEN_AUTH } from '~/plugins/graphql'
+    import { AUTH_TOKEN_AUTH, AUTH_ME } from '~/plugins/graphql'
 
     export default Vue.extend({
 
@@ -54,13 +54,7 @@
         methods: {
 
             async login() {
-                const res = await this.$apollo.mutate({
-                    mutation: AUTH_TOKEN_AUTH,
-                    variables: this.form,
-                    update(store, data) {
-                        // todo: update store
-                    },
-                }).then((data) => {
+                this.$apollo.mutate({ mutation: AUTH_TOKEN_AUTH, variables: this.form, }).then((data) => {
                     this.errors = data.data.tokenAuth.errors 
                     ? 
                         { 
@@ -71,10 +65,18 @@
                         {}
                     
                     if (data.data.tokenAuth.success) {
-                        this.$apolloHelpers.onLogin(data.data.tokenAuth.token)
-                        this.$router.push({ path: '/' })
+                        this.$apolloHelpers.onLogin(data.data.tokenAuth.token).then(() => {
+                            this.$store.commit('auth/login', { token: data.data.tokenAuth.token, refreshToken: data.data.tokenAuth.refreshToken })
+
+                            this.$apollo.mutate({ mutation: AUTH_ME, }).then((data) => {
+                                this.$store.commit('auth/setUser', { ...data.data.me })
+                                this.$router.push({ path: '/' })
+                            })
+                        })
                     }
                 });
+                // const res = await this.$apollo.mutate({ mutation: AUTH_TOKEN_AUTH, variables: this.form, })
+                // console.log(res)
             },
 
             getErrorsText(field) {

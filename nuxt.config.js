@@ -7,7 +7,6 @@ export default {
         '@nuxtjs/google-analytics',
         '@nuxtjs/axios',
         '@nuxtjs/proxy',
-        '@nuxtjs/auth',
         '@nuxtjs/apollo',
         'cookie-universal-nuxt',
     ],
@@ -18,6 +17,8 @@ export default {
 
     plugins: [
         { src: '~/plugins/vue-timers', mode: 'client' },
+        { src: '~/plugins/vue-awesome-countdown', mode: 'client' },
+        { src: '~/plugins/persisted-state', ssr: false },
     ],
 
     server: {
@@ -32,7 +33,8 @@ export default {
     apollo: {
         clientConfigs: {
             default: '~/plugins/apollo-client.js',
-        }
+        },
+        authenticationType: 'JWT',
     },
 
     components: true,

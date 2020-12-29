@@ -1,17 +1,17 @@
 import gql from 'graphql-tag'
 
-import TODO_ADD from '~/queries/todo/add-todo.graphql'
-import TODO_TOGGLE from '~/queries/todo/toggle-todo.graphql'
-import TODO_GET_CATEGORIES from '~/queries/todo/get-categories.graphql'
-import TODO_GET_TODO_LIST from '~/queries/todo/get-todo-list.graphql'
-import TODO_REMOVE from '~/queries/todo/remove-todo.graphql'
+import TODO_ADD from '~/queries/todo/add-todo.gql'
+import TODO_TOGGLE from '~/queries/todo/toggle-todo.gql'
+import TODO_GET_CATEGORIES from '~/queries/todo/get-categories.gql'
+import TODO_GET_TODO_LIST from '~/queries/todo/get-todo-list.gql'
+import TODO_REMOVE from '~/queries/todo/remove-todo.gql'
 
-import AUTH_REGISTER from '~/queries/auth/register.graphql'
-import AUTH_VERIFY_ACCOUNT from '~/queries/auth/verify-account.graphql'
-import AUTH_TOKEN_AUTH from '~/queries/auth/token-auth.graphql'
-import AUTH_ME from '~/queries/auth/me.graphql'
-import AUTH_USER from '~/queries/auth/user.graphql'
-import AUTH_UPDATE_ACCOUNT from '~/queries/auth/update-account.graphql'
+import AUTH_REGISTER from '~/queries/auth/register.gql'
+import AUTH_VERIFY_ACCOUNT from '~/queries/auth/verify-account.gql'
+import AUTH_TOKEN_AUTH from '~/queries/auth/token-auth.gql'
+import AUTH_ME from '~/queries/auth/me.gql'
+import AUTH_USER from '~/queries/auth/user.gql'
+import AUTH_UPDATE_ACCOUNT from '~/queries/auth/update-account.gql'
 
 export { 
     TODO_ADD, 

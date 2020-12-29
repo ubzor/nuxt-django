@@ -10,8 +10,9 @@
         layout: 'centered',
 
         async mounted() {
-            await this.$apolloHelpers.onLogout()
-            await this.$router.push({ path: '/' })
+            this.$apolloHelpers.onLogout()
+            this.$store.commit('auth/logout')
+            this.$router.push({ path: '/' })
         }
     })
 </script>
