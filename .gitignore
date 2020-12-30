@@ -1,6 +1,7 @@
 .env
 .idea
-.nuxt
+.vscode
+_nuxt
 dist
 node_modules
 venv
