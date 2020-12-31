@@ -3,11 +3,17 @@ export default {
     rootDir: 'app',
 
     modules: [
-        
+        '@nuxtjs/axios',
+        // '@nuxtjs/auth-next',
     ],
 
     buildModules: [
         '@nuxtjs/vuetify',
+    ],
+
+    plugins: [
+        '~/plugins/local-storage',
+        '~/plugins/axios',
     ],
 
     head: {
@@ -20,13 +26,8 @@ export default {
             },
         ],
         meta: [
-            {
-                charset: 'utf-8'
-            },
-            {
-                name: 'viewport',
-                content: 'width=device-width, initial-scale=1'
-            }
+            { charset: 'utf-8' },
+            { name: 'viewport', content: 'width=device-width, initial-scale=1' }
         ],
     },
 
@@ -34,4 +35,35 @@ export default {
         host: process.env.APP_HOST,
         port: process.env.APP_PORT,
     },
+
+    router: {
+        // middleware: [
+        //     'auth',
+        // ]
+    },
+
+    // auth: {
+    //     redirect: {
+    //         login: '/auth/login',
+    //         logout: '/',
+    //         callback: '/auth/login',
+    //         home: '/'
+    //     },
+    //     strategies: {
+    //         jwt: {
+    //             scheme: '~/schemes/jwt',
+    //             endpoints: {
+    //                 login: { url: 'api/v1/auth/jwt/create/', method: 'POST', },
+    //                 user: { url: 'api/v1/auth/users/me/', method: 'GET', },
+    //             },
+    //             token: 'JWT',
+    //         }
+    //     },
+    // },
+
+    axios: {
+        baseURL: process.env.API_URL
+    },
+
+    components: true,
 }

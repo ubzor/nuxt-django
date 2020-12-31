@@ -21,8 +21,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     #path to djoser endpoints
-    path('auth/', include('djoser.urls')),
-    path('auth/', include('djoser.urls.jwt')),
+    path('api/v1/auth/', include('djoser.urls')),
+    path('api/v1/auth/', include('djoser.urls.jwt')),
 
     # path('accounts/', include('api.accounts.urls')),
 ]

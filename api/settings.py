@@ -118,6 +118,7 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+TIME_ZONE = 'Europe/Moscow'
 
 
 # Static files (CSS, JavaScript, Images)
@@ -143,13 +144,26 @@ REST_FRAMEWORK = {
 
 AUTH_USER_MODEL = 'accounts.User'
 
+SIMPLE_JWT = {
+   'AUTH_HEADER_TYPES': ('JWT',),
+}
+
 # Djoser
 
 DJOSER = {
+    'TOKEN_MODEL': None,
     'LOGIN_FIELD': 'email',
     'HIDE_USERS': True,
     'SEND_ACTIVATION_EMAIL': True,
+    'SEND_CONFIRMATION_EMAIL': True,
+    'USER_CREATE_PASSWORD_RETYPE': True,
+    'SET_PASSWORD_RETYPE': True,
     'ACTIVATION_URL': 'auth/activate/{uid}/{token}',
+    'PASSWORD_RESET_CONFIRM_RETYPE': True,
+    'PASSWORD_RESET_CONFIRM_URL': 'auth/password-reset/{uid}/{token}',
+    'SERIALIZERS': {
+        'current_user': 'api.accounts.serializers.CustomUserSerializer',
+    }
 }
 
 # Email
