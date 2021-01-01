@@ -5,6 +5,6 @@
 <script>
     export default {
         layout: 'centered',
-        // auth: 'guest',
+        middleware: ['guest',],
     }
 </script>

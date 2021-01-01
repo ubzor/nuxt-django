@@ -13,7 +13,7 @@
                         autocomplete="email"
                         v-model="form.email"
                         hint="Enter your email"
-                        :error="!!errors.email"
+                        :error="!!errors.email || !!errors.detail"
                         :messages="getErrorsText('email')"
                         @input="hideErrors('email')"
                     )
@@ -51,23 +51,30 @@
         methods: {
 
             async login() {
-                await this.$store.dispatch('auth/login', this.form)
 
-                // const res = await this.$auth.loginWith('jwt', { data: this.form })
-                // await this.$axios.setHeader('Authorization', 'JWT ' + res.data.access)
-                // await this.$auth.ctx.app.$axios.setHeader('Authorization', 'JWT ' + res.data.access)
-                // await this.$auth.setUserToken(res.data.access, res.data.refresh)
+                let errors
+                errors = await this.$store.dispatch('auth/login', this.form)
+
+                if (await !errors)
+                    this.errors = {}
+                    if (this.$router.currentRoute.name === 'auth-login')
+                        this.$router.replace({ path: '/auth/account' })
+                else
+                    this.errors = errors
             },
 
             getErrorsText(field) {
-                if (this.errors[field] && this.errors[field][0]) {
-                    return this.errors[field][0].message
-                }
+                if (this.errors[field] && this.errors[field][0])
+                    return this.errors[field][0]
+                if (field === 'email' && this.errors.detail)
+                    return this.errors.detail
                 return null
             },
 
             hideErrors(field) {
                 this.errors[field] = undefined
+                if (field === 'email')
+                    this.errors.detail = undefined
             },
         },
     }

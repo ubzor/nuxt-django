@@ -1,5 +1,5 @@
 export default {
-    buildDir: '../_nuxt',
+    buildDir: '../.nuxt',
     rootDir: 'app',
 
     modules: [

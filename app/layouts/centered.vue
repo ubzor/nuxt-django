@@ -1,6 +1,8 @@
 <template lang="pug">
     v-app
-        v-main
+        top-menu
+
+        v-main(app)
             v-container.full-height(fluid)
                 v-row(align="center" justify="center")
                     v-col(cols="12" class="column")

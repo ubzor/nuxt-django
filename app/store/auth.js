@@ -36,13 +36,21 @@ export const mutations = {
   
 export const actions = {
     async login ({ commit, dispatch }, { email, password }) {
-        // make an API call to login the user with an email address and password
-        const payload = await this.$axios.post('/api/v1/auth/jwt/create/', { email, password })
-        
-        // commit the user and tokens to the state
-        // commit(AUTH_MUTATIONS.SET_USER, user)
-        commit(AUTH_MUTATIONS.SET_PAYLOAD, payload.data)
-        dispatch('currentUser')
+        return new Promise(async (resolve, reject) => {
+            // make an API call to login the user with an email address and password
+            const payload = await this.$axios.post('/api/v1/auth/jwt/create/', { email, password })
+
+            if (payload.status === 400 || payload.status === 401) {
+                return resolve({ ...payload.data })
+            }
+
+            // commit the user and tokens to the state
+            // commit(AUTH_MUTATIONS.SET_USER, user)
+            await commit(AUTH_MUTATIONS.SET_PAYLOAD, payload.data)
+            await dispatch('currentUser')
+
+            return resolve(undefined)
+        })
     },
 
     async currentUser ({ commit }) {

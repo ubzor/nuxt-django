@@ -1,6 +1,8 @@
 <template lang="pug">
     v-app
-        main
+        top-menu
+
+        v-main(app)
             v-container
                 nuxt
 </template>

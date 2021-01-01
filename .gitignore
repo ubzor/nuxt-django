@@ -1,9 +1,10 @@
 .env
 .idea
 .vscode
-_nuxt
+.nuxt
 dist
 node_modules
 venv
 db.sqlite3
 __pycache__
+yarn-error.log
