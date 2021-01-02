@@ -15,21 +15,21 @@
                         autocomplete="email"
                         v-model="form.email"
                         hint="Enter your email"
-                        :error="!!errors.email"
+                        :error="!!errors.email || !!errors.detail"
                         :messages="getErrorsText('email')"
                         @input="hideErrors('email')"
                     )
                     v-text-field(
                         label="Password"
-                        name="password1"
+                        name="password"
                         prepend-inner-icon="mdi-lock"
                         type="password"
                         autocomplete="new-password"
-                        v-model="form.password1"
+                        v-model="form.password"
                         hint="Enter new password"
-                        :error="!!errors.password1"
-                        :messages="getErrorsText('password1')"
-                        @input="hideErrors('password1')"
+                        :error="!!errors.password"
+                        :messages="getErrorsText('password')"
+                        @input="hideErrors('password')"
                     )
                     v-text-field(
                         label="Confirm password"
@@ -39,7 +39,7 @@
                         autocomplete="new-password"
                         v-model="form.re_password"
                         hint="Enter new password"
-                        :error="!!errors.re_password"
+                        :error="!!errors.re_password || !!errors.non_field_errors"
                         :messages="getErrorsText('re_password')"
                         @input="hideErrors('re_password')"
                     )
@@ -50,7 +50,7 @@
                         :messages="getErrorsText('accept')"
                         @mouseup="hideErrors('accept')"
                     )
-                    v-btn.mt-10(color="primary" @click.prevent="register" block x-large type="submit") Register
+                    v-btn.mt-10(color="primary" @click.prevent="register" block x-large type="submit" depressed) Register
 
         p.text-center.pt-6 Already a member? #[nuxt-link(to="/auth/login") Log In]
 </template>
@@ -62,7 +62,7 @@
             return {
                 form: {
                     email: '',
-                    password1: '',
+                    password: '',
                     re_password: '',
                     accept: false,
                 },
@@ -73,34 +73,50 @@
         methods: {
 
             async register() {
+                // todo: vee validate
+
                 if (!this.form.accept) {
                     this.errors = {
                         ...this.errors,
-                        accept: [{ message: 'You must accept terms.' }]
+                        accept: ['You must accept terms.']
                     }
                 } else {
-                    console.log('register')
+                    const errors = await this.$store.dispatch('auth/register', this.form)
+                    
+                    if (await !errors) {
+                        this.errors = {}
+                        this.$router.push({ path: '/auth/activate' })
+                    } else {
+                        this.errors = errors
+                    }
+
                     // this.clearForm()
                     // this.$router.push({ path: '/auth/verify-account' })
                 }
             },
 
             getErrorsText(field) {
-                if (this.errors[field] && this.errors[field][0]) {
-                    return this.errors[field][0].message
-                }
+                if (this.errors[field] && this.errors[field][0])
+                    return this.errors[field][0]
+                if (field === 'email' && this.errors.detail)
+                    return this.errors.detail
+                if (field === 're_password' && this.errors.non_field_errors)
+                    return this.errors.non_field_errors
                 return null
             },
 
             hideErrors(field) {
                 this.errors[field] = undefined
+                if (field === 'email')
+                    this.errors.detail = undefined
+                if (field === 're_password')
+                    this.errors.non_field_errors = undefined
             },
 
             clearForm() {
                 this.form = {
-                    username: '',
                     email: '',
-                    password1: '',
+                    password: '',
                     re_password: '',
                     accept: false,
                 }

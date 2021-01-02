@@ -12,8 +12,9 @@ export default {
     ],
 
     plugins: [
-        '~/plugins/local-storage',
         '~/plugins/axios',
+        '~/plugins/persisted-state',
+        '~/plugins/vue-awesome-countdown',
     ],
 
     head: {

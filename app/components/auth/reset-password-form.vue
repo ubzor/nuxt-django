@@ -2,9 +2,9 @@
     div
         v-card
             v-toolbar(color="primary" dark flat)
-                v-toolbar-title Login
-            v-card-text.pt-10.px-8.pb-0
-                v-form.py-10(@submit.prevent="login")
+                v-toolbar-title Reset password
+            v-card-text.py-10.px-8
+                v-form.py-10(@submit.prevent="resetPassword")
                     v-text-field(
                         label="Email"
                         name="email"
@@ -17,46 +17,28 @@
                         :messages="getErrorsText('email')"
                         @input="hideErrors('email')"
                     )
-                    v-text-field(
-                        label="Password"
-                        name="password"
-                        prepend-inner-icon="mdi-lock"
-                        type="password"
-                        autocomplete="current-password"
-                        v-model="form.password"
-                        hint="Enter your password"
-                        :error="!!errors.password"
-                        :messages="getErrorsText('password')"
-                        @input="hideErrors('password')"
-                    )
-                    v-btn.mt-10(color="primary" @click.prevent="login" block x-large type="submit" depressed) Login
-            v-card-actions.px-8.pb-6.pt-10.justify-center
-                nuxt-link.d-inline-block(to="/auth/reset-password") Forgot your password?
-        p.text-center.pt-6 Not a member? #[nuxt-link(to="/auth/register") Create an account]
+                    v-btn.mt-10(color="primary" @click.prevent="resetPassword" block x-large type="submit" depressed) Reset
 </template>
 
 <script>
     export default {
-
         data() {
             return {
                 form: {
-                    email: '',
-                    password: '',
+                    email: ''
                 },
-                errors: {}
+                errors: {},
+                success: false,
             }
         },
 
         methods: {
-
-            async login() {
-                const errors = await this.$store.dispatch('auth/login', this.form)
-
+            async resetPassword() {
+                const errors = await this.$store.dispatch('auth/resetPassword', this.form)
+                
                 if (await !errors) {
                     this.errors = {}
-                    if (this.$router.currentRoute.name === 'auth-login')
-                        this.$router.replace({ path: '/auth/account' })
+                    this.$router.push({ path: '/auth/confirm-reset-password' })
                 } else {
                     this.errors = errors
                 }
@@ -75,6 +57,6 @@
                 if (field === 'email')
                     this.errors.detail = undefined
             },
-        },
+        }
     }
 </script>

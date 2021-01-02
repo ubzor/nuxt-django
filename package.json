@@ -6,6 +6,7 @@
   "license": "MIT",
   "repository": "https://github.com/ubzor/nuxt-django-apollo",
   "dependencies": {
+    "@babel/plugin-proposal-nullish-coalescing-operator": "^7.12.1",
     "@babel/plugin-transform-spread": "^7.12.1",
     "@nuxtjs/axios": "^5.12.4",
     "@nuxtjs/vuetify": "^1.11.2",
@@ -16,6 +17,7 @@
     "pug-plain-loader": "^1.1.0",
     "sass-loader": "^10.1.0",
     "vue": "^2.6.12",
+    "vue-awesome-countdown": "^1.1.4",
     "vuex-persistedstate": "^4.0.0-beta.1"
   },
   "scripts": {
